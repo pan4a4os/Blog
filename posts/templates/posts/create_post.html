@@ -1,0 +1,18 @@
+{% extends 'registration/base.html' %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'posts/style.css' %}">
+<header>
+    <h2 id="header">Data recording form</h2>
+</header>
+<div class="features">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <h3><span>{{ error }}</span><br></h3>
+        <button class="btn btn-success" type="submit">Add post</button>
+        <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+    </form>
+</div>
+{% endblock %}

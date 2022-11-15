@@ -1,0 +1,47 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+{% block title %}Wishlist page{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'posts/style.css' %}">
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-centered mt-3">
+        <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-centered">
+        <h3 class="mt-5 mb-3">Wishlist</h3>
+          {% if post %}
+              <div class="alert alert-info">
+                <h3>{{ post.title }}</h3>
+                <p>owner: {{ post.owner }}</p>
+                <p>phone: {{ post.phone_number }}</p>
+                <p>info: {{ post.text }}</p>
+                <p>type: {{ post.type }}</p>
+                <p>price: {{ post.price }}</p>
+                <p>date published: {{ post.created }}</p>
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="picture" width="200"><br>
+                {% else %}
+                <p>No image here</p>
+                {% endif %}
+                <br><a href="/wishlist" class="btn btn-primary" role="button">remove</a>
+              </div>
+        {% else %}
+          {% if user.user_wishlist.all %}
+            {% for wish in user.user_wishlist.all %}
+              <div class="alert alert-info" id="center_wishlist">
+                <h3>{{ wish.owner }}</h3>
+                <br><a href="/wishlist/add_to_wishlist/{{ wish.id }}" class="btn btn-primary" role="button">remove</a>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

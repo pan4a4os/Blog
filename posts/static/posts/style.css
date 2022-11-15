@@ -1,0 +1,61 @@
+body {
+    background-image: linear-gradient(to top, #553c9a, #b393d3);
+    text-align: center;
+}
+
+ul {
+    margin-left: 39%;
+    font-size: 24px;
+
+}
+
+#wishlist {
+    color: purple;
+}
+
+a:link {
+  background-color: transparent;
+  color: pink;
+}
+
+a:visited {
+  color: pink;
+  background-color: transparent;
+}
+
+a:hover {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+form {
+    margin-left: 38%;
+    width: 25%;
+    text-align: left;
+}
+
+.features {
+    color: #ffffff;
+}
+
+#header {
+    background-image: linear-gradient(to bottom, #553c9a, #b393d3);
+    color: #3b00b3;
+}
+
+#center_wishlist {
+    float: left;
+    clear: both;
+    width: 490px;
+    padding: 10px 15px;
+    text-align:center
+}
+
+.alert-info {
+    float: left;
+    clear: both;
+    width: 45%;
+    margin: 10px 28%;
+    text-align: left;
+}

@@ -1,0 +1,60 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+{% block title %}Home page{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'posts/style.css' %}">
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-centered mt-3">
+        <a href="{% url 'creation' %}" class="btn btn-primary">Add post</a>
+        <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-centered">
+        <h3 class="mt-5 mb-3">Posts</h3>
+        {% if post %}
+          {% for el in post %}
+            {% if el.status != 'deactivated' %}
+              <div class="alert alert-info">
+                <h3>{{ el.title }}</h3>
+                <p>owner: {{ el.owner }}</p>
+                <p>phone: {{ el.phone_number }}</p>
+                <p>info: {{ el.text }}</p>
+                <p>type: {{ el.type }}</p>
+                <p>price: {{ el.price }}</p>
+                <p>date published: {{ el.created }}</p>
+                {% if el.image %}
+                <img src="{{ el.image.url }}" alt="picture" width="200">
+                {% else %}
+                <p>No image here</p>
+                {% endif %}
+                <div>
+                  {% if not user.user_wishlist.id %}
+                    <br><a href="{% url 'add-wishlist' el.id %}" class="btn btn-secondary btn-lg" role="button" aria-disabled="true" id="wishlist" onclick="javascript:alert('Post added to wishlist');">Add to Wish List</a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          <a href="{% url 'wishlist' %}" class="btn btn-info">WishList</a>
+          {% endfor %}
+        {% else %}
+          <p>No posts here</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% if post.has_other_pages %}
+  <ul class="pagination">
+    {% for i in post.paginator.page_range %}
+      {% if post.number == i %}
+        <li class="active"><span>{{ i }}</span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}
