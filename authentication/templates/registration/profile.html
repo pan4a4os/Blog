@@ -1,0 +1,44 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+{% block title %}Home page{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'posts/style.css' %}">
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-centered mt-3">
+        <a href="{% url 'wishlist' %}" class="btn btn-primary">Wishlist</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-centered">
+        <h3 class="mt-5 mb-3">Posts</h3>
+        {% if post %}
+            {% if el.status != 'deactivated' %}
+              <div class="alert alert-info">
+                <h3>{{ post.title }}</h3>
+                <p>Owner: {{ post.owner }}</p>
+                <p>Phone: {{ post.phone_number }}</p>
+                <p>Info: {{ post.text }}</p>
+                <p>Type: {{ post.type }}</p>
+                <p>Price: {{ post.price }}</p>
+                <p>Date published: {{ post.created }}</p>
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="picture" width="200">
+                {% else %}
+                <p>No image here</p>
+                {% endif %}
+                <div>
+                    <br><a href="{% url 'add-wishlist' post.id %}" class="btn btn-secondary btn-lg" role="button" aria-disabled="true" id="wishlist" onclick="javascript:alert('Post added to wishlist');">Add to Wish List</a>
+                </div>
+              </div>
+            {% endif %}
+          <a href="{% url 'home' %}" class="btn btn-info">Back</a>
+        {% else %}
+          <p>No posts here</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

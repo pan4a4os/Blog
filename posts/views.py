@@ -29,11 +29,19 @@ def wishlist(request):
 def add_to_wishlist(request, id):
     post = get_object_or_404(Post, id=id)
     if post.user_wishlist.filter(id=request.user.id).exists():
-        post.user_wishlist.remove(request.user)
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
     else:
         post.user_wishlist.add(request.user)
+    return render(request, 'posts/wishlist.html', {'post': post})
 
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+def delete_from_wishlist(request, id):
+    post = get_object_or_404(Post, id=id)
+    if post.user_wishlist.filter(id=request.user.id).exists():
+        post.user_wishlist.remove(request.user)
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    else:
+        return render(request, 'registration/profile.html', {'post': post})
 
 
 

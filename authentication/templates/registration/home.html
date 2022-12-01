@@ -18,26 +18,13 @@
           {% for el in post %}
             {% if el.status != 'deactivated' %}
               <div class="alert alert-info">
-                <h3>{{ el.title }}</h3>
-                <p>owner: {{ el.owner }}</p>
-                <p>phone: {{ el.phone_number }}</p>
-                <p>info: {{ el.text }}</p>
-                <p>type: {{ el.type }}</p>
-                <p>price: {{ el.price }}</p>
-                <p>date published: {{ el.created }}</p>
-                {% if el.image %}
-                <img src="{{ el.image.url }}" alt="picture" width="200">
-                {% else %}
-                <p>No image here</p>
-                {% endif %}
+                <center><h3>{{ el.title }}</h3></center>
+                <h5><p>Owner: {{ el.owner }}</p></h5>
                 <div>
-                  {% if not user.user_wishlist.id %}
-                    <br><a href="{% url 'add-wishlist' el.id %}" class="btn btn-secondary btn-lg" role="button" aria-disabled="true" id="wishlist" onclick="javascript:alert('Post added to wishlist');">Add to Wish List</a>
-                  {% endif %}
+                    <a href="{% url 'profile' el.id %}" class="btn btn-secondary btn-lg" role="button" aria-disabled="true" id="wishlist">Post details</a>
                 </div>
               </div>
             {% endif %}
-          <a href="{% url 'wishlist' %}" class="btn btn-info">WishList</a>
           {% endfor %}
         {% else %}
           <p>No posts here</p>
@@ -46,6 +33,7 @@
     </div>
   </div>
 </section>
+<a href="{% url 'wishlist' %}" class="btn btn-info">WishList</a>
 {% if post.has_other_pages %}
   <ul class="pagination">
     {% for i in post.paginator.page_range %}

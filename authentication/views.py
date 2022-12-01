@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import NewUserForm
 from posts.models import Post
@@ -11,14 +11,19 @@ def home(request):
     post = Post.objects.order_by('-created')
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(post, 1)
+    paginator = Paginator(post, 2)
     try:
         post = paginator.page(page)
     except PageNotAnInteger:
         post = paginator.page(1)
     except EmptyPage:
         post = paginator.page(paginator.num_pages)
-    return render(request, "registration/home.html", {'post': post,})
+    return render(request, "registration/home.html", {'post': post})
+
+
+def post_profile(request, id):
+    post = get_object_or_404(Post, id=id)
+    return render(request, 'registration/profile.html', {'post': post})
 
 
 def register(request):
