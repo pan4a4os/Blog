@@ -1,7 +1,7 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import PostsForm
+from django.http import HttpResponseRedirect
 from .models import Post
+from .forms import PostsForm
 
 
 def create_post(request):
@@ -20,6 +20,11 @@ def create_post(request):
         'error': error
     }
     return render(request, 'posts/create_post.html', data)
+
+
+def post_profile(request, id):
+    post = get_object_or_404(Post, id=id)
+    return render(request, 'posts/profile.html', {'post': post})
 
 
 def wishlist(request):

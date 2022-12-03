@@ -21,11 +21,6 @@ def home(request):
     return render(request, "registration/home.html", {'post': post})
 
 
-def post_profile(request, id):
-    post = get_object_or_404(Post, id=id)
-    return render(request, 'registration/profile.html', {'post': post})
-
-
 def register(request):
     if request.method == 'POST':
         form = NewUserForm(request.POST)
@@ -37,3 +32,9 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
+def error_404(request, exception):
+    return render(request, 'registration/404.html', status=404)
+
+
+def server_error(request, exception=None):
+    return render(request, 'registration/500.html')
